@@ -1,0 +1,53 @@
+version: '3.8'
+services:
+  crowdsec:
+    image: crowdsecurity/crowdsec:${VERSION_CROWDSEC}
+    container_name: crowdsec
+    environment:
+      GID: "${GID-1000}"
+      COLLECTIONS: "crowdsecurity/linux crowdsecurity/traefik"
+      TZ: ${TZ}
+    volumes:
+      - ${DOCKERDIR}/data/crowdsec/backup:/backup
+      - ${DOCKERDIR}/data/crowdsec/config:/etc/crowdsec/
+      - ${DOCKERDIR}/data/crowdsec/config/acquis.d:/etc/crowdsec/acquis.d/
+      - ${DOCKERDIR}/data/crowdsec/dbdata:/var/lib/crowdsec/data/
+      #- /var/log/crowdsec:/var/log/crowdsec:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      ### traefik docker container log file
+      - /opt/traefik/data/logs/access.log:/var/log/traefik/access.log:ro
+      ### sshd log file rocky linux
+      - /var/log/secure:/var/log/secure:ro
+      ### meshcentral log file
+      #- /opt/meshcentral/data/mc/data/auth.log:/var/log/auth.log:ro
+    healthcheck:
+      test: ["CMD", "cscli", "version"]
+      interval: 40s
+      timeout: 2s
+      retries: 5
+      start_period: 10s
+    security_opt:
+      - no-new-privileges=true
+    ports:
+      - "127.0.0.1:8085:8080"
+    networks:
+      - proxy
+    restart: unless-stopped
+
+#  bouncer-traefik:
+#    image: docker.io/fbonalair/traefik-crowdsec-bouncer:latest
+#    container_name: bouncer-traefik
+#    environment:
+#      # # Get this api key by running `docker exec crowdsec cscli bouncers add bouncer-traefik`
+#      CROWDSEC_BOUNCER_API_KEY: ${CROWDSEC_BOUNCER_API_KEY}
+#      CROWDSEC_AGENT_HOST: crowdsec:8080
+#    networks:
+#      - proxy # same network as traefik + crowdsec
+#    depends_on:
+#      crowdsec:
+#        condition: service_healthy
+#    restart: unless-stopped
+
+networks:
+  proxy:
+    external: true
