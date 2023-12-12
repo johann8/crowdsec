@@ -301,7 +301,7 @@ docker exec crowdsec cscli collections install crowdsecurity/sshd
 docker exec crowdsec cscli collections remove crowdsecurity/sshd
 
 # upgrade sshd collections
-# docker exec crowdsec cscli collections upgrade crowdsecurity/sshd
+docker exec crowdsec cscli collections upgrade crowdsecurity/sshd
 ```
 
 - add acquis file
