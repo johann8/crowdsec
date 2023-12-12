@@ -292,7 +292,7 @@ ipset list crowdsec6-blacklists
 
 # Install sshd collections
 
-- install sshd collections
+- install `sshd` collections
 ```bash
 # install sshd collections
 docker exec crowdsec cscli collections install crowdsecurity/sshd
@@ -315,7 +315,7 @@ labels:
 ----------
 ```
 
-- add logfile as volume
+- add logfile as `volume`
 ```bash
 vim /opt/crowdsec/docker-compose.yml
 ---------
@@ -326,7 +326,7 @@ vim /opt/crowdsec/docker-compose.yml
 ---------
 ```
 
-- change file 0hourly - reduces entries under `/var/log/secure`
+- change file `0hourly` - reduces entries under `/var/log/secure`
 ```bash
 vim /etc/cron.d/0hourly
 ---------
@@ -339,7 +339,7 @@ MAILTO=root
 ---------
 ```
 
-- restart crowdsec docker container
+- restart `crowdsec` docker container
 ```bash
 cd /opt/crowdsec/
 docker-compose down && docker-compose up -d
