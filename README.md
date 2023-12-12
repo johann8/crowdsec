@@ -9,6 +9,8 @@ CrowdSec works by looking for aggressive IP address behavior by reading service,
 
 - [Install CrowdSec docker container](#install-crowdsec-docker-container)
 - [Install firewall-bouncer on host](#install-firewall-bouncer-on-host)
+- [Install sshd collections](#install-sshd-collections)
+
 
 # Install CrowdSec docker container
 - create folders
@@ -288,10 +290,60 @@ ipset list crowdsec-blacklists
 ipset list crowdsec6-blacklists
 ```
 
+# Install sshd collections
 
+- install sshd collections
+```bash
+# install sshd collections
+docker exec crowdsec cscli collections install crowdsecurity/sshd
 
+# remove sshd collections
+docker exec crowdsec cscli collections remove crowdsecurity/sshd
 
+# upgrade sshd collections
+# docker exec crowdsec cscli collections upgrade crowdsecurity/sshd
+```
 
+- add acquis file
+````bash
+vim /opt/crowdsec/data/crowdsec/config/acquis.d/ssh.yaml
+----------
+filenames:
+  - /var/log/secure
+labels:
+  type: syslog
+----------
+```
+- add logfile as volume
+````bash
+vim /opt/crowdsec/docker-compose.yml
+---------
+...
+      ### sshd log file rocky linux
+      - /var/log/secure:/var/log/secure:ro
+...
+---------
+```
 
+- change file 0hourly - reduces entries under `/var/log/secure`
+````bash
+vim /etc/cron.d/0hourly
+---------
+# Run the hourly jobs
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+MAILTO=root
+#01 * * * * root run-parts /etc/cron.hourly
+*/10 * * * * root run-parts /etc/cron.hourly
+---------
+```
 
+- restart crowdsec docker container
+```bash
+cd /opt/crowdsec/
+docker-compose down && docker-compose up -d
+docker-compose ps
+docker-compose logs
+```
 
+Enjoy!
