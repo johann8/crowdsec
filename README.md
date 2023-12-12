@@ -11,3 +11,67 @@ CrowdSec works by looking for aggressive IP address behavior by reading service,
   - [Setup Timezone](#setup-timezone)
   - [Setup General](#setup-general)
 
+# Install CrowdSec docker container
+- create folders
+
+```bash
+mkdir -p /opt/crowdsec/data/crowdsec/{backup,config,dbdata}
+mkdir -p /opt/crowdsec/data/crowdsec/config/acquis.d
+tree -L 4 /opt/crowdsec/
+```
+
+- download files
+```bash
+cd /opt/crowdsec
+wget https://raw.githubusercontent.com/johann8/crowdsec/master/docker-compose.yml
+wget https://raw.githubusercontent.com/johann8/crowdsec/master/.env
+```
+
+- config files
+
+```bash
+# edit docker-compose.yml
+vim /opt/crowdsec/docker-compose.yml
+
+# edit env file and set rights
+vim /opt/crowdsec/.env
+chmod 0600 /opt/crowdsec/.env
+
+# add traefik acquis file
+vim /opt/crowdsec/data/crowdsec/config/acquis.d/traefik.yaml
+-----------------
+filenames:
+  - /var/log/traefik/*
+labels:
+  type: traefik
+----------------
+```
+- 
+```bash
+
+```
+
+```bash
+
+```
+
+```bash
+
+```
+
+```bash
+
+```
+
+```bash
+
+```
+
+```bash
+
+```
+
+```bash
+
+```
+
