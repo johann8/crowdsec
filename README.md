@@ -305,7 +305,7 @@ docker exec crowdsec cscli collections remove crowdsecurity/sshd
 ```
 
 - add acquis file
-````bash
+```bash
 vim /opt/crowdsec/data/crowdsec/config/acquis.d/ssh.yaml
 ----------
 filenames:
@@ -314,8 +314,9 @@ labels:
   type: syslog
 ----------
 ```
+
 - add logfile as volume
-````bash
+```bash
 vim /opt/crowdsec/docker-compose.yml
 ---------
 ...
@@ -326,7 +327,7 @@ vim /opt/crowdsec/docker-compose.yml
 ```
 
 - change file 0hourly - reduces entries under `/var/log/secure`
-````bash
+```bash
 vim /etc/cron.d/0hourly
 ---------
 # Run the hourly jobs
