@@ -10,7 +10,7 @@ CrowdSec works by looking for aggressive IP address behavior by reading service,
 - [Install CrowdSec docker container](#install-crowdsec-docker-container)
 - [Install firewall-bouncer on host](#install-firewall-bouncer-on-host)
 - [Install sshd collections](#install-sshd-collections)
-- [Backup crowdsec docker container](backup-crowdsec-docker-container)
+- [Backup crowdsec docker container](#backup-crowdsec-docker-container)
 
 
 # Install CrowdSec docker container
@@ -370,7 +370,7 @@ cd /opt/crowdsec
 docker-compose up -d --force-recreate
 
 # download script
-wget
+wget https://raw.githubusercontent.com/johann8/crowdsec/master/backup_crowdsec_config.sh
 
 # set rights
 chmod 0700 /usr/local/bin/backup_crowdsec_config.sh
@@ -388,7 +388,7 @@ crontab -e
 - delete old backup folder
 ```bash
 # download script
-wget
+wget https://raw.githubusercontent.com/johann8/crowdsec/master/delete_crowdsec_old_backups.sh
 
 # set rights
 chmod 0700 /usr/local/bin/backup_crowdsec_config.sh
