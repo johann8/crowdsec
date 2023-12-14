@@ -370,7 +370,7 @@ cd /opt/crowdsec
 docker-compose up -d --force-recreate
 
 # download script
-wget https://raw.githubusercontent.com/johann8/crowdsec/master/backup_crowdsec_config.sh
+wget -P /usr/local/bin https://raw.githubusercontent.com/johann8/crowdsec/master/backup_crowdsec_config.sh
 
 # set rights
 chmod 0700 /usr/local/bin/backup_crowdsec_config.sh
@@ -388,7 +388,7 @@ crontab -e
 - delete old backup folder
 ```bash
 # download script
-wget https://raw.githubusercontent.com/johann8/crowdsec/master/delete_crowdsec_old_backups.sh
+wget -P /usr/local/bin https://raw.githubusercontent.com/johann8/crowdsec/master/delete_crowdsec_old_backups.sh
 
 # set rights
 chmod 0700 /usr/local/bin/backup_crowdsec_config.sh
